@@ -3,6 +3,7 @@ package edu.escuelaing.lab2.service;
 import edu.escuelaing.lab2.data.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class UserServiceHashMap implements UserService{
 
     @Override
     public List<User> getAll() {
-        return (List<User>) userHashMap.values();
+        return new ArrayList<>(userHashMap.values());
     }
 
     @Override

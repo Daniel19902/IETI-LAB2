@@ -1,7 +1,7 @@
 package edu.escuelaing.lab2.controller;
 
 
-import com.sun.org.apache.regexp.internal.RE;
+
 import edu.escuelaing.lab2.data.User;
 import edu.escuelaing.lab2.dto.UserDto;
 import edu.escuelaing.lab2.service.UserService;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.nio.cs.US_ASCII;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -18,12 +17,11 @@ import java.util.concurrent.atomic.AtomicLong;
 @RequestMapping("/v1/user")
 public class UserController {
 
-    @Autowired
     private final UserService userService;
 
-    private AtomicLong id = new AtomicLong();
+    private final AtomicLong id = new AtomicLong();
 
-    private UserController(UserService userService){
+    public UserController(@Autowired UserService userService){
         this.userService = userService;
     }
 
@@ -36,7 +34,7 @@ public class UserController {
     @GetMapping( "/{id}" )
     public ResponseEntity<User> findById( @PathVariable String id ) {
 
-        return new ResponseEntity (userService.findById(id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<> (userService.findById(id), HttpStatus.ACCEPTED);
     }
 
 
@@ -44,7 +42,7 @@ public class UserController {
     public ResponseEntity<User> create( @RequestBody UserDto userDto ) {
         User user = new User(userDto);
         user.setId(id.incrementAndGet());
-        return new ResponseEntity (userService.create(user), HttpStatus.ACCEPTED);
+        return new ResponseEntity<> (userService.create(user), HttpStatus.ACCEPTED);
     }
 
     @PutMapping( "/{id}" )
@@ -53,13 +51,15 @@ public class UserController {
         String idUSer = user.getId();
         User newUSer = new User(userDto);
         newUSer.setId(Long.parseLong(idUSer));
-        return new ResponseEntity(newUSer, HttpStatus.ACCEPTED);
+        userService.update(newUSer, id);
+        return new ResponseEntity<> (newUSer, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping( "/{id}" )
     public ResponseEntity<Boolean> delete(@PathVariable String id ) {
         try {
-            return new ResponseEntity (true, HttpStatus.ACCEPTED);
+            userService.deleteById(id);
+            return new ResponseEntity<> (true, HttpStatus.ACCEPTED);
         }catch (Exception e){
             return new ResponseEntity<>(false, HttpStatus.ACCEPTED);
         }
