@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -18,25 +17,28 @@ import java.util.concurrent.atomic.AtomicLong;
 @RequestMapping("/v1/user")
 public class UserController {
 
-    @Autowired
     private final UserService userService;
 
-    private AtomicLong id = new AtomicLong();
+    private final AtomicLong id = new AtomicLong();
 
-    private UserController(UserService userService){
+    public UserController(@Autowired UserService userService){
         this.userService = userService;
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
 
-        return new ResponseEntity<>(userService.getAll(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping( "/{id}" )
     public ResponseEntity<User> findById( @PathVariable String id ) {
-
-        return new ResponseEntity<> (userService.findById(id), HttpStatus.ACCEPTED);
+        User user = userService.findById(id);
+        if(user != null){
+            return new ResponseEntity<> (user, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
 
@@ -54,7 +56,8 @@ public class UserController {
         User newUSer = new User(userDto);
         newUSer.setId(Long.parseLong(idUSer));
         userService.update(newUSer, id);
-        return new ResponseEntity<>(newUSer, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(newUSer, HttpStatus.OK);
+
     }
 
     @DeleteMapping( "/{id}" )
@@ -62,6 +65,7 @@ public class UserController {
         try {
             userService.deleteById(id);
             return new ResponseEntity <>(true, HttpStatus.ACCEPTED);
+
         }catch (Exception e){
             return new ResponseEntity<>(false, HttpStatus.ACCEPTED);
         }

@@ -30,7 +30,7 @@ public class UserServiceHashMap implements UserService{
 
     @Override
     public User findById(String id) {
-        return userHashMap.get(id);
+        return userHashMap.getOrDefault(id, null);
     }
 
     @Override

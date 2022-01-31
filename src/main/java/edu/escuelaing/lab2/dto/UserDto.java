@@ -1,5 +1,7 @@
 package edu.escuelaing.lab2.dto;
 
+import org.json.JSONObject;
+
 public class UserDto {
 
 
@@ -35,5 +37,14 @@ public class UserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+
+
+
+    public UserDto(JSONObject jsObject){
+        this.name = jsObject.get("name").toString();
+        this.email = jsObject.get("email").toString();
+        this.lastName = jsObject.getString("lastName");
     }
 }

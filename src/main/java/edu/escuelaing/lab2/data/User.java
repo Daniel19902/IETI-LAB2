@@ -1,10 +1,7 @@
 package edu.escuelaing.lab2.data;
 
 import edu.escuelaing.lab2.dto.UserDto;
-
-import javax.jws.soap.SOAPBinding;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class User {
 
