@@ -26,6 +26,7 @@ class Lab2ApplicationTests {
 		UserController userController = new UserController(userService);
 		ResponseEntity<List<User>> users = userController.getAll();
 		assertEquals(users.getStatusCode(), HttpStatus.ACCEPTED);
+		//"holaaaaa"
 
 
 
