@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -48,16 +49,17 @@ public class UserServiceMongoDB implements UserService {
         userRepository.deleteById(userId);
         return userRepository.insert(user);
     }
-    /*
+
     @Override
     public List<User> findUsersWithNameOrLastNameLike(String queryTest) {
         return userRepository.findUsersWithNameOrLastNameLike(queryTest);
     }
 
     @Override
-    public List<User> findUsersCreateAfter(Data startDate) {
-        return userRepository.findUsersCreateAfter(startDate);
+    public List<User> findUsersCreateAfter(Date startDate) {
+        return userRepository.findUsersByCreateAtAfter(startDate);
     }
 
-     */
+
+
 }

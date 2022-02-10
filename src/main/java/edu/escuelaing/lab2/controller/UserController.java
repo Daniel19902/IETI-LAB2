@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -31,13 +34,21 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
-    /*
-    @GetMapping("/{queryTest}")
+
+    @GetMapping("/findUsersWithNameOrLastNameLike/{queryTest}")
     public ResponseEntity<List<User>> findUsersWithNameOrLastNameLike(@PathVariable String queryTest){
         return new ResponseEntity<>(userService.findUsersWithNameOrLastNameLike(queryTest), HttpStatus.OK);
     }
 
-     */
+    /*
+    @GetMapping("/findUsersCreateAfter/{date}")
+    public ResponseEntity<List<User>> findUsersCreateAfter(@PathVariable String date) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        Date date1 = simpleDateFormat.parse(date);
+        System.out.println(date1.toString());
+        return new ResponseEntity<>(userService.findUsersCreateAfter(date1), HttpStatus.OK);
+    }
+*/
 
 
     @GetMapping( "/{id}" )
@@ -64,8 +75,7 @@ public class UserController {
         String idUSer = user.getId();
         User newUSer = new User(userDto);
         newUSer.setId(Long.parseLong(idUSer));
-        userService.update(newUSer, id);
-        return new ResponseEntity<>(newUSer, HttpStatus.OK);
+        return new ResponseEntity<>(userService.update(newUSer, id), HttpStatus.OK);
 
     }
 

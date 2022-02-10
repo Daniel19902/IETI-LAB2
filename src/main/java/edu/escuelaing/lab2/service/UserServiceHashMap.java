@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class UserServiceHashMap implements UserService{
-
+public class UserServiceHashMap {
+/*
     private HashMap<String, User> userHashMap = new HashMap<>();
 
     public HashMap<String, User> getUserHashMap() {
@@ -50,7 +50,7 @@ public class UserServiceHashMap implements UserService{
         userHashMap.put(userId, user);
         return user;
     }
-    /*
+
     @Override
     public List<User> findUsersWithNameOrLastNameLike(String queryTest) {
         return null;
@@ -61,5 +61,8 @@ public class UserServiceHashMap implements UserService{
         return null;
     }
 
-     */
+
+
+
+*/
 }
