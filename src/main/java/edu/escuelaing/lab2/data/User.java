@@ -1,16 +1,28 @@
 package edu.escuelaing.lab2.data;
 
 import edu.escuelaing.lab2.dto.UserDto;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+
+@Document
 public class User {
 
+    @Id
     private String id ;
+
     private String name;
     private String lastName;
+
+    @Indexed( unique = true)
     private String email;
     private Date createAt;
 
+    public User() {
+    }
 
     public User(UserDto userDto) {
         this.name = userDto.getName();

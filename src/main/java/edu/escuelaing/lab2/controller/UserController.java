@@ -31,6 +31,15 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
+    /*
+    @GetMapping("/{queryTest}")
+    public ResponseEntity<List<User>> findUsersWithNameOrLastNameLike(@PathVariable String queryTest){
+        return new ResponseEntity<>(userService.findUsersWithNameOrLastNameLike(queryTest), HttpStatus.OK);
+    }
+
+     */
+
+
     @GetMapping( "/{id}" )
     public ResponseEntity<User> findById( @PathVariable String id ) {
         User user = userService.findById(id);
