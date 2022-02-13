@@ -18,6 +18,8 @@ public interface UserService {
 
     List<User> findUsersCreateAfter(Date startDate);
 
+    User findByEmail(String email);
+
 
 
 }

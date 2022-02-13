@@ -8,8 +8,10 @@ import edu.escuelaing.lab2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -73,12 +75,16 @@ public class UserController {
     public ResponseEntity<User> update(@RequestBody UserDto userDto, @PathVariable String id ) {
         User user = userService.findById(id);
         String idUSer = user.getId();
+        if(userDto.getPassword() != null){
+            user.setPasswordHash(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt()));
+        }
         User newUSer = new User(userDto);
         newUSer.setId(Long.parseLong(idUSer));
         return new ResponseEntity<>(userService.update(newUSer, id), HttpStatus.OK);
 
     }
 
+    @RolesAllowed("ADMIN")
     @DeleteMapping( "/{id}" )
     public ResponseEntity<Boolean> delete(@PathVariable String id ) {
         try {

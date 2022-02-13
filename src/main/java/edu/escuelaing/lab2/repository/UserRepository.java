@@ -15,4 +15,6 @@ public interface UserRepository  extends MongoRepository<User, String> {
 
     List<User> findUsersByCreateAtAfter(Date createAt);
 
+    User findUsersByEmail(String email);
+
 }

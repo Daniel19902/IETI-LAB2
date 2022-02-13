@@ -60,6 +60,10 @@ public class UserServiceMongoDB implements UserService {
         return userRepository.findUsersByCreateAtAfter(startDate);
     }
 
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findUsersByEmail(email);
+    }
 
 
 }
