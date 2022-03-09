@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/v1/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
